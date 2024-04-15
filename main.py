@@ -4,6 +4,7 @@ import os
 import json
 import subprocess
 from dotenv import load_dotenv
+import asyncio
 
 load_dotenv()
 
@@ -12,6 +13,7 @@ intents.messages = True
 intents.message_content = True
 
 client = commands.Bot(command_prefix=">", intents=intents)
+client.remove_command("help")
 
 @client.event
 async def on_ready():
@@ -24,8 +26,13 @@ if os.path.exists("./guilds.json"):
 else:
     setup_data = {}
 
-
-import asyncio
+@client.command()
+async def help(ctx):
+    embed = nextcord.Embed(title="Bot Commands", description="List of available commands", color=0x00ff00)
+    embed.add_field(name=">setup", value="Set up a new project in the current guild", inline=False)
+    embed.add_field(name=">help", value="Display this help message", inline=False)
+    embed.add_field(name="File Structure", value="The bot organizes projects with categories as folders and channels within categories as files. File names should end with code extensions like `.py`, `.js`, or `.java`.", inline=False)
+    await ctx.send(embed=embed)
 
 @client.command()
 async def setup(ctx):
