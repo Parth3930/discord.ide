@@ -1,4 +1,3 @@
-Sure, here's the updated README.md with instructions for adding channel names like `main-py`, `main-js`, etc.:
 
 ---
 
